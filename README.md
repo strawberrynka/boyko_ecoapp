@@ -1,7 +1,7 @@
 # EcoApp
 Бойко София Дмитриевна - 10И4
 Автор проекта
-# Контакты:
+Контакты:
 Электронная почта: sofiyaboyko@inbox.ru
 ВК: @strawberrynka
 Телеграм: @strawberrynka
