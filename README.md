@@ -1,9 +1,9 @@
 # София Бойко - "EcoApp"
 
-## Группа: 10И4
-## Электронная почта: sofiyaboyko@inbox.ru
-## ВК: @strawberrynka
-## Телеграм: @strawberrynka
+### Группа: 10И4
+### Электронная почта: sofiyaboyko@inbox.ru
+### ВК: @strawberrynka
+### Телеграм: @strawberrynka
 
 ## [ НАЗВАНИЕ ПРОЕКТА ]
 
