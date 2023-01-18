@@ -1,4 +1,4 @@
-# HSE Lyceum IT Projects - ecoapp
+## HSE Lyceum IT Projects - ecoapp
 
 
-# Бойко София
+## Бойко София
