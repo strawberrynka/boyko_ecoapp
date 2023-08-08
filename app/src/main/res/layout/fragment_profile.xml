@@ -6,7 +6,17 @@
     android:background="@color/background_gray"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Профиль"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="36dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

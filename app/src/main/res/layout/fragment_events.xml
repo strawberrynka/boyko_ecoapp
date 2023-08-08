@@ -6,12 +6,22 @@
     android:background="@color/background_gray"
     tools:context=".EventsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Мероприятия"
+        android:fontFamily="@font/montserrat_bold"
+        android:textSize="36dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30sp"
+        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Events Fragment"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:layout_gravity="center"/>
 
 
