@@ -12,20 +12,40 @@ import android.view.ViewGroup;
 
 import com.example.ecoapp.Adapter.AdviceAdapter;
 import com.example.ecoapp.Adapter.NearbyAdapter;
+import com.example.ecoapp.Adapter.TasksAdapter;
 import com.example.ecoapp.Model.Advice;
 import com.example.ecoapp.Model.Nearby;
+import com.example.ecoapp.Model.Tasks;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView adviceRecyclerView, nearbyRecyclerView;
+    private RecyclerView adviceRecyclerView, nearbyRecyclerView, tasksRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        tasksRecyclerView = view.findViewById(R.id.tasksRecyclerView);
+        tasksRecyclerView.setHasFixedSize(true);
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        List<Tasks> tasksList = new ArrayList<>();
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+        tasksList.add(new Tasks("Очистить городской пляж"));
+
+        TasksAdapter tasksAdapter = new TasksAdapter(tasksList);
+        tasksRecyclerView.setAdapter(tasksAdapter);
 
         adviceRecyclerView = view.findViewById(R.id.adviceRecyclerView);
         adviceRecyclerView.setHasFixedSize(true);
