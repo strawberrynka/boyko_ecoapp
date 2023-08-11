@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Поиск"
         android:fontFamily="@font/montserrat_bold"
-        android:textSize="36dp"
+        android:textSize="28sp"
         android:textColor="@color/black"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"

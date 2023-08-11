@@ -22,14 +22,12 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
 
-    //private RecyclerView adviceRecyclerView, nearbyRecyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new ProfileFragment());
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
