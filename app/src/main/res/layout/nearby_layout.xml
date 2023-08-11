@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginLeft="0dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="10dp"
     android:layout_height="180dp">
@@ -14,17 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/nearby_image"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="15dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/empty_nearby"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nearby_image_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            android:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/nearby_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/empty_nearby"
+                android:background="@color/white"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/nearby_name_tv"
@@ -42,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nearby_image"
+            app:layout_constraintTop_toBottomOf="@id/nearby_image_card_view"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
