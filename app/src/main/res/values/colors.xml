@@ -5,4 +5,5 @@
     <color name="background_gray">#F2F2F2</color>
     <color name="text_gray">#676767</color>
     <color name="home_titles_gray">#898989</color>
+    <color name="background_search">#E0E0E0</color>
 </resources>
