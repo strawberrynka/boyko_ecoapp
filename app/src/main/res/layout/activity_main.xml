@@ -24,6 +24,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"/>
+        android:background="@drawable/background_bottom_navigation_bar"
+        app:itemIconSize="36dp"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/bottom_nav_menu"
+        style="@style/AppBottomNavigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,15 +3,15 @@
 
     <item
         android:title=""
-        android:icon="@drawable/baseline_home_24"
+        android:icon="@drawable/home_icon_selector"
         android:id="@+id/home"/>
     <item android:title=""
-        android:icon="@drawable/baseline_person_24"
+        android:icon="@drawable/profile_icon_selector"
         android:id="@+id/profile"/>
     <item android:title=""
-        android:icon="@drawable/baseline_search_24"
+        android:icon="@drawable/search_icon_selector"
         android:id="@+id/search"/>
     <item android:title=""
-        android:icon="@drawable/baseline_star_24"
+        android:icon="@drawable/events_icon_selector"
         android:id="@+id/events"/>
 </menu>

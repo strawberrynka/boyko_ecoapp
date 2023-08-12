@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="itemHorizontalTranslationEnabled">false</item>
+        <item name="itemBackground">@android:color/white</item>
+    </style>
+</resources>
