@@ -27,6 +27,7 @@
         android:background="@drawable/background_bottom_navigation_bar"
         app:itemIconSize="36dp"
         app:labelVisibilityMode="unlabeled"
+        app:itemIconTint="@color/black"
         app:menu="@menu/bottom_nav_menu"
         style="@style/AppBottomNavigation"/>
 

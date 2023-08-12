@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
 
-        binding.bottomNavigationView.setItemIconTintList(null);
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
             int itemID = item.getItemId();
