@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/nearby_image_card_view"
+            android:id="@+id/coming_image_card_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:id="@+id/nearby_image"
+                android:id="@+id/coming_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/empty_nearby"
@@ -36,7 +36,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/nearby_name_tv"
+            android:id="@+id/coming_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nearby_image_card_view"
+            app:layout_constraintTop_toBottomOf="@id/coming_image_card_view"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

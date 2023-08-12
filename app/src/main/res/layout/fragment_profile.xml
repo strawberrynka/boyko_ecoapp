@@ -70,6 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
+                app:cardElevation="0dp"
                 android:elevation="0dp"
                 android:layout_marginTop="12dp"
                 app:cardCornerRadius="16dp"
