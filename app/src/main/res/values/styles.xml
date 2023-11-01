@@ -3,6 +3,40 @@
     <style name="AppBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:stateListAnimator">@null</item>
         <item name="itemHorizontalTranslationEnabled">false</item>
-        <item name="itemBackground">@android:color/white</item>
+        <item name="itemBackground">@color/white</item>
     </style>
+
+    <style name="LightThemeRadioButtonStyle">
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="DarkThemeRadioButtonStyle">
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="GreenThemeRadioButtonStyle">
+        <item name="android:button">@android:color/transparent</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+<!--    <style name="AppThemeDark" parent="Theme.AppCompat">-->
+<!--        <item name="colorPrimary">@color/primaryColorDark</item>-->
+<!--        &lt;!&ndash; Другие атрибуты стиля для темной темы &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="AppThemeGreen" parent="Theme.AppCompat">-->
+<!--        <item name="colorPrimary">@color/primaryColorGreen</item>-->
+<!--        &lt;!&ndash; Другие атрибуты стиля для зеленой темы &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    <style name="AppThemeLight" parent="Theme.AppCompat">-->
+<!--        <item name="colorPrimary">@color/primaryColorLight</item>-->
+<!--        &lt;!&ndash; Другие атрибуты стиля для светлой темы &ndash;&gt;-->
+<!--    </style>-->
+
 </resources>

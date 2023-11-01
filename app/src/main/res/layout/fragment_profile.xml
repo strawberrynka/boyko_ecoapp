@@ -1,139 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background_gray"
-    tools:context=".ProfileFragment">
-
-    <ScrollView
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="themeInfo"
+            type="Integer" />
+    </data>
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
+        tools:context=".presentation.fragments.ProfileFragment">
 
-        <LinearLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_loader">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Профиль"
-                android:fontFamily="@font/montserrat_bold"
-                android:textSize="28sp"
-                android:textColor="@color/black"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image_button"
-                android:layout_width="230dp"
-                android:layout_height="230dp"
-                android:layout_marginTop="20dp"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/default_photo_profile"
-                android:layout_gravity="center_horizontal"
-                />
-
-            <TextView
-                android:id="@+id/person_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Бойко София"
-                android:textColor="@color/text_gray"
-                android:textSize="20sp"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:id="@+id/person_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="Баллы: 256"
-                android:textColor="@color/text_gray"
-                android:textSize="20sp"
-                android:layout_gravity="center_horizontal" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/interface_settings_card_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
-                app:cardElevation="0dp"
-                android:elevation="0dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/advice_card_view">
+                android:paddingBottom="60dp"
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Профиль"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="28sp"
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_white : @color/black}"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image_button"
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_marginTop="20dp"
+                    app:civ_border_color="#FFFFFF"
+                    app:civ_border_width="6dp"
+                    android:src="@drawable/default_photo_profile"
+                    android:layout_gravity="center_horizontal"
+                    />
+                <ProgressBar
+                    android:id="@+id/profile_load_image"
+                    android:layout_gravity="center"
+                    android:layout_width="230dp"
+                    android:visibility="gone"
+                    android:layout_height="230dp"
+                    android:layout_marginTop="20dp"
+                    android:indeterminateTint="@{themeInfo == 2 ? @color/green_theme_green : @color/green}"
+                    />
+
+                <EditText
+                    android:id="@+id/person_nickname"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="20dp">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:background="@null"
+                    android:maxLines="1"
+                    android:layout_gravity="center_horizontal" />
 
-                    <TextView
-                        android:id="@+id/interface_settings_text_view"
-                        android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/person_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:background="@null"
+                    android:maxLines="2"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:id="@+id/person_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                    android:textSize="16sp"
+                    android:layout_gravity="center_horizontal" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fragment_profile_tasks_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    android:elevation="0dp"
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/main_title">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:text="Настроить интерфейс"
-                        android:textColor="@color/home_titles_gray"
-                        android:textSize="20sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        android:orientation="vertical">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/white_theme"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintTop_toBottomOf="@id/interface_settings_text_view"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:src="@drawable/white_circle"
-                        />
+                        <TextView
+                            android:id="@+id/my_tasks_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Мои задачи"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
+                            android:textSize="20sp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="16dp" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/black_theme"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/interface_settings_text_view"
-                        app:layout_constraintStart_toEndOf="@id/white_theme"
-                        android:src="@drawable/black_circle"
-                        />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/myTasksRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="40dp"/>
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/green_theme"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/interface_settings_text_view"
-                        app:layout_constraintStart_toEndOf="@id/black_theme"
-                        android:src="@drawable/green_circle"
-                        />
+                        <TextView
+                            android:id="@+id/needs_confirming_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Ждет подтверждения"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
+                            android:textSize="20sp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="16dp" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/needsConfirmingRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="40dp"/>
 
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/in_process_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Выполняю"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
+                            android:textSize="20sp"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="16dp" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/inProcessRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginLeft="40dp"/>
 
-        </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/fragment_profile_button_add_task"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="12dp"
+                            android:paddingLeft="50dp"
+                            android:paddingRight="50dp"
+                            android:textAllCaps="false"
+                            android:textColor="#FFFFFF"
+                            android:fontFamily="@font/montserrat_light"
+                            android:text="Создать задачу"
+                            android:elevation="0dp"
+                            android:background="@drawable/green_rounded_button"
+                            android:stateListAnimator="@null"/>
+                    </LinearLayout>
 
-    </ScrollView>
+                </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/interface_settings_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    app:cardElevation="0dp"
+                    android:elevation="0dp"
+                    android:layout_marginTop="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/advice_card_view">
 
-</FrameLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/interface_settings_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Настроить интерфейс"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
+                            android:textSize="20sp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <RadioGroup
+                            android:id="@+id/profile_radio_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/interface_settings_text_view"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/white_theme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
+                                android:background="@drawable/radio_button_selector_light"
+                                style="@style/LightThemeRadioButtonStyle">
+                            </RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/black_theme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/radio_button_selector_dark"
+                                style="@style/DarkThemeRadioButtonStyle">
+                            </RadioButton>
+
+                            <RadioButton
+                                android:id="@+id/green_theme"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:background="@drawable/radio_button_selector_green"
+                                style="@style/GreenThemeRadioButtonStyle">
+                            </RadioButton>
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_marginLeft="70dp"
+                    android:textAllCaps="false"
+                    android:textColor="#FFFFFF"
+                    android:fontFamily="@font/montserrat_light"
+                    android:text="Выйти"
+                    android:elevation="0dp"
+                    android:background="@drawable/green_rounded_button"
+                    android:stateListAnimator="@null"/>
+
+            </LinearLayout>
+        </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </FrameLayout>
+</layout>

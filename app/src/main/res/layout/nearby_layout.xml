@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="themeInfo"
+            type="Integer" />
+    </data>
+<androidx.cardview.widget.CardView
     android:layout_width="140dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
     app:cardElevation="0dp"
     android:elevation="0dp"
-    android:layout_marginLeft="0dp"
+    android:id="@+id/nearby_item"
+    android:layout_marginStart="20dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="10dp"
     android:layout_height="180dp">
@@ -17,7 +25,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/nearby_image_card_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             android:elevation="0dp"
@@ -27,10 +35,10 @@
 
             <ImageView
                 android:id="@+id/nearby_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/empty_nearby"
-                android:background="@color/white"
+                android:background="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                 android:scaleType="centerCrop"
                 />
         </androidx.cardview.widget.CardView>
@@ -41,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text=""
-            android:textColor="@color/text_gray"
+            android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
             android:textSize="16sp"
             android:fontFamily="@font/montserrat_regular"
             android:layout_gravity="center"
@@ -56,3 +64,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
+</layout>

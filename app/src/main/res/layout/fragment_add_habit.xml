@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="themeInfo"
+            type="Integer" />
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
+    android:orientation="vertical"
+    tools:context=".presentation.fragments.AddHabitFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/fragment_add_habit_back_to_previous_fragment_button"
+                android:contentDescription="back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="-70dp"
+                android:background="@drawable/baseline_arrow_back_24"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="250dp"
+                android:text="Добавить привычку"
+                android:fontFamily="@font/montserrat_bold"
+                android:textSize="28sp"
+                android:textColor="@{themeInfo == 2 ? @color/green_theme_white : @color/black}"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/add_habit_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+                android:elevation="0dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/event_name_card_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginBottom="16dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="0dp"
+                        android:elevation="0dp"
+                        app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}">
+
+                        <EditText
+                            android:id="@+id/habit_name_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="16dp"
+                            android:hint="Название"
+                            android:textSize="16sp"
+                            android:textColorHint="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:backgroundTint="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
+                            android:background="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
+                            android:inputType="textCapWords"
+                            android:layout_height="48dp" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <RadioGroup
+                        android:id="@+id/habit_frequency_radio_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginLeft="24dp"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/daily_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ежедневная"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                        <RadioButton
+                            android:id="@+id/weekly_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Еженедельная"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                        <RadioButton
+                            android:id="@+id/monthly_radio_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ежемесячная"
+                            android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+                            android:fontFamily="@font/montserrat_regular"/>
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/fragment_habit_button_add_habit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="150dp"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/montserrat_light"
+                android:text="Добавить"
+                android:elevation="0dp"
+                android:background="@drawable/green_rounded_button"
+                android:stateListAnimator="@null"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+</layout>

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:title=""
         android:icon="@drawable/home_icon_selector"
-        android:id="@+id/home"/>
+        android:id="@+id/homeFragment"/>
     <item android:title=""
         android:icon="@drawable/profile_icon_selector"
-        android:id="@+id/profile"/>
+        android:id="@+id/profileFragment" />
     <item android:title=""
         android:icon="@drawable/search_icon_selector"
-        android:id="@+id/search"/>
+        android:id="@+id/searchFragment"/>
     <item android:title=""
         android:icon="@drawable/events_icon_selector"
-        android:id="@+id/events"/>
+        android:id="@+id/eventsFragment"/>
 </menu>

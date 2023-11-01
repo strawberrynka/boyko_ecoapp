@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="themeInfo"
+            type="Integer" />
+    </data>
+<FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    tools:context=".SearchFragment">
+    android:layout_height="wrap_content"
+    android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/white}"
+    tools:context=".presentation.fragments.SearchFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +27,7 @@
             android:text="Поиск"
             android:fontFamily="@font/montserrat_bold"
             android:textSize="28sp"
-            android:textColor="@color/black"
+            android:textColor="@{themeInfo == 2 ? @color/green_theme_white : @color/black}"
             android:layout_gravity="center_horizontal"
             />
 
@@ -33,9 +39,7 @@
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
             android:elevation="0dp"
-            app:cardBackgroundColor="@color/background_search"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,18 +61,25 @@
                     android:layout_width="0dp"
                     android:hint="Мероприятия, гайды"
                     android:textSize="20dp"
-                    android:textColorHint="@color/home_titles_gray"
+                    android:textColorHint="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
                     android:fontFamily="@font/montserrat_regular"
-                    android:backgroundTint="@color/background_search"
-                    android:background="@color/background_search"
+                    android:backgroundTint="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
+                    android:background="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
                     android:inputType="textCapWords"
                     android:layout_weight="1"
                     android:layout_height="48dp" />
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/foundRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="16dp"/>
 
     </LinearLayout>
 
 </FrameLayout>
+</layout>

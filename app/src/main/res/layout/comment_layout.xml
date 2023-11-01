@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+        <data>
+                <variable
+                    name="themeInfo"
+                    type="Integer" />
+        </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:background="@{themeInfo == 2 ? @color/green_theme_comment_background : @color/comment_background}"
+    android:layout_marginLeft="0dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/comment_profile_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/default_photo_profile"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <TextView
+                    android:id="@+id/comment_profile_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toEndOf="@id/comment_profile_image"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintTop_toTopOf="@id/comment_profile_image"
+                    />
+
+                <TextView
+                    android:id="@+id/comment_content_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="20dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/comment_profile_image"
+                    app:layout_constraintTop_toBottomOf="@id/comment_profile_name_tv"/>
+
+                <ImageView
+                    android:id="@+id/delete_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/delete_comment"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="8dp">
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/comment_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/comment_content_tv"
+                    android:layout_marginStart="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/comment_content_tv"
+                    />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="#E0E0E0">
+        </View>
+</LinearLayout>
+</layout>

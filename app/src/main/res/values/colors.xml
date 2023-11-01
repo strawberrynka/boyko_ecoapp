@@ -7,4 +7,20 @@
     <color name="home_titles_gray">#898989</color>
     <color name="background_search">#E0E0E0</color>
     <color name="green">#63D37C</color>
+    <color name="reglogin_text">#898A8D</color>
+    <color name="background_card_view">#FFFFFFFF</color>
+    <color name="top_divider">#E0E0E0</color>
+    <color name="comment_background">#FFFFFF</color>
+
+    <color name="green_theme_black">#FF000000</color>
+    <color name="green_theme_white">#FFFFFFFF</color>
+    <color name="green_theme_background_gray">#224836</color>
+    <color name="green_theme_text_gray">#FFFFFF</color>
+    <color name="green_theme_home_titles_gray">#FFFFFF</color>
+    <color name="green_theme_background_search">#69906D</color>
+    <color name="green_theme_green">#63D37C</color>
+    <color name="green_theme_reglogin_text">#FFFFFF</color>
+    <color name="green_theme_background_card_view">#557C59</color>
+    <color name="green_theme_top_divider">#234D2F</color>
+    <color name="green_theme_comment_background">#224836</color>
 </resources>

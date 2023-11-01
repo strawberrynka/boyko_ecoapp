@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="themeInfo"
+            type="Integer" />
+    </data>
+<androidx.cardview.widget.CardView
+    android:layout_width="140dp"
+    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+    android:id="@+id/events_card_view_my"
+    android:layout_marginStart="0dp"
+    android:layout_marginTop="8dp"
+    app:cardElevation="0dp"
+    android:elevation="0dp"
+    android:layout_marginBottom="10dp"
+    android:layout_height="180dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/my_event_image_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            android:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/my_event_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/empty_nearby"
+                android:background="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/my_event_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_event_image_card_view"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+</layout>
