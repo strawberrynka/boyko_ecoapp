@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.ecoapp.R;
 import com.example.ecoapp.databinding.FragmentCreateTaskBinding;
 import com.example.ecoapp.domain.helpers.StorageHandler;
+import com.example.ecoapp.presentation.MainActivity;
 import com.example.ecoapp.presentation.viewmodels.ProfileViewModel;
 import com.example.ecoapp.presentation.viewmodels.TaskViewModel;
 
@@ -26,9 +27,25 @@ import org.jetbrains.annotations.NotNull;
 
 public class CreateTaskFragment extends Fragment {
     private FragmentCreateTaskBinding binding;
-    private TaskViewModel viewModel;
+    public TaskViewModel viewModel;
     private ProfileViewModel profileViewModel;
     private int userScores;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(false);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(true);
+        }
+    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -54,7 +71,9 @@ public class CreateTaskFragment extends Fragment {
             if (title.isEmpty() || description.isEmpty() || scores.isEmpty()) {
                 Toast.makeText(requireContext(), "Вы не заполнили все поля", Toast.LENGTH_SHORT).show();
             } else if (Integer.parseInt(scores) > userScores) {
-                Toast.makeText(requireContext(), "У вас не хватает очков", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "У вас недостаточно баллов", Toast.LENGTH_SHORT).show();
+            } else if (Integer.parseInt(scores) < 50) {
+                Toast.makeText(requireContext(), "Вы ввели слишком мало баллов: нужно не меньше 50", Toast.LENGTH_SHORT).show();
             } else {
                 viewModel.createTask(title, description, Integer.parseInt(scores));
             }
@@ -82,7 +101,7 @@ public class CreateTaskFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel.getNavigation().observe(getViewLifecycleOwner(), isNavigation -> {
             if (isNavigation) {
-                Navigation.findNavController(requireView()).navigate(R.id.profileFragment);
+                Navigation.findNavController(requireView()).navigate(R.id.action_createTaskFragment_to_profileFragment);
                 viewModel.setCancelNavigation();
             }
         });

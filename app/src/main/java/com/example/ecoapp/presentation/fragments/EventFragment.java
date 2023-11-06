@@ -7,9 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.ecoapp.R;
-import com.example.ecoapp.data.models.Comment;
 import com.example.ecoapp.databinding.FragmentEventBinding;
 import com.example.ecoapp.domain.helpers.StorageHandler;
 import com.example.ecoapp.data.models.EventCustom;
@@ -36,7 +32,7 @@ import java.util.Objects;
 
 public class EventFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private FragmentEventBinding binding;
-    private EventViewModel viewModel;
+    public EventViewModel viewModel;
     private EventCustom eventCustom;
     private StorageHandler storageHandler;
     private Bundle args;
@@ -119,13 +115,9 @@ public class EventFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             binding.theEventCurrentPeopleAmount.setOnClickListener(v -> {
                 if (eventCustom != null && storageHandler.getUserID().equals(eventCustom.getAuthorID())) {
-                    FragmentManager manager = requireActivity().getSupportFragmentManager();
-                    UserListDialogFragment dialogFragment = new UserListDialogFragment();
                     Bundle args2 = new Bundle();
                     args2.putString("eventID", eventCustom.getEventID());
-                    dialogFragment.setArguments(args2);
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    dialogFragment.show(transaction, "dialog");
+                    Navigation.findNavController(v).navigate(R.id.userListDialogFragment, args2);
                 }
             });
 
@@ -188,6 +180,7 @@ public class EventFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 binding.theEventAddress.setText(eventCustom.getPlace());
                 binding.theEventAwardPoints.setText(String.valueOf("Баллы в награду: " + eventCustom.getScores()));
                 binding.theEventCurrentPeopleAmount.setText("Участники: " + String.valueOf(eventCustom.getUsersList().size()) + " / " + String.valueOf(eventCustom.getMaxUsers()));
+                binding.eventAuthorName.setText("Автор: " + eventCustom.getAuthorName());
                 if (!storageHandler.getUserID().equals(eventCustom.getAuthorID())) {
                     showButton(eventCustom.getUsersList().contains(storageHandler.getUserID()));
                     if (eventCustom.getCurrentUsers() >= eventCustom.getMaxUsers()) {

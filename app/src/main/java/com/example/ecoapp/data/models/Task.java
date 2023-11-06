@@ -32,6 +32,9 @@ public class Task {
     @SerializedName("userDescription")
     private String userDescription;
 
+    @SerializedName("authorName")
+    private String authorName;
+
     public Task(String name) {
         this.name = name;
     }
@@ -45,7 +48,7 @@ public class Task {
         this.authorID = authorID;
     }
 
-    public Task(String name, String description, Integer scores, String taskID, String authorID, String userID, String dateOfCreated, ArrayList<String> images, String userDescription) {
+    public Task(String name, String description, Integer scores, String taskID, String authorID, String userID, String dateOfCreated, ArrayList<String> images, String userDescription, String authorName) {
         this.name = name;
         this.description = description;
         this.scores = scores;
@@ -55,6 +58,7 @@ public class Task {
         this.dateOfCreated = dateOfCreated;
         this.images = images;
         this.userDescription = userDescription;
+        this.authorName = authorName;
     }
 
     public String getName() {
@@ -127,5 +131,13 @@ public class Task {
 
     public void setUserDescription(String userDescription) {
         this.userDescription = userDescription;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

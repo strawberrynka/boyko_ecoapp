@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,7 @@ public class ProgressFragment extends Fragment {
             }
         });
 
+        binding.progressLayoutBack.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
 
         return binding.getRoot();
     }

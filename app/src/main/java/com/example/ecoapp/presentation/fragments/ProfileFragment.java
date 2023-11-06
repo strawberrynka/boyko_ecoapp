@@ -1,17 +1,22 @@
 package com.example.ecoapp.presentation.fragments;
 
 import static android.app.Activity.RESULT_OK;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.provider.MediaStore;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,15 +51,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private FragmentProfileBinding binding;
-    private int SELECT_PHOTO_PROFILE = 1;
-    private Uri uri;
-    private StorageHandler storageHandler;
-    private ProfileViewModel viewModel;
-    private TaskViewModel taskViewModel;
-    private TasksAdapter tasksAdapter;
-    private TasksAdapter tasksAdapter2;
-    private TasksAdapter tasksAdapter3;
+    public FragmentProfileBinding binding;
+    public int SELECT_PHOTO_PROFILE = 1;
+    public Uri uri;
+    public StorageHandler storageHandler;
+    public ProfileViewModel viewModel;
+    public TaskViewModel taskViewModel;
+    public TasksAdapter tasksAdapter;
+    public TasksAdapter tasksAdapter2;
+    public TasksAdapter tasksAdapter3;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,15 +100,26 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
 
         binding.profileImageButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType("image/*");
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(requireActivity(),
+                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                        1);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
 
-            Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
+                Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
 
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
 
-            startActivityForResult(chooserIntent, SELECT_PHOTO_PROFILE);
+                startActivityForResult(chooserIntent, SELECT_PHOTO_PROFILE);
+            }
         });
 
 
@@ -111,11 +129,14 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 ((MainActivity) requireActivity()).changeMenu(false);
             }
 
-            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_authSignupFragment);
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("isLogout", true);
+
+            Navigation.findNavController(v).navigate(R.id.action_profileFragment_to_authSignupFragment, bundle);
         });
 
         binding.personName.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_NULL) {
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                 if (!textView.getText().toString().isEmpty()) {
                     viewModel.updateName(textView.getText().toString());
                 }
@@ -125,6 +146,19 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
             return false;
         });
+
+        binding.personNickname.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+                if (!textView.getText().toString().isEmpty()) {
+                    viewModel.editLogin(textView.getText().toString());
+                }
+
+                return true;
+            }
+
+            return false;
+        });
+
 
         binding.whiteTheme.setOnClickListener(View -> {
             if (storageHandler.getTheme() != 0) {
@@ -158,6 +192,8 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
             if (storageHandler.getTheme() != 2) {
                 storageHandler.setTheme(2);
                 binding.setThemeInfo(2);
+
+                requireActivity().recreate();
             }
         });
 
@@ -233,12 +269,13 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
         });
     }
 
-    private void loadData() {
+    public void loadData() {
         binding.profileLoader.setRefreshing(true);
         viewModel.getUserData(storageHandler.getToken(), storageHandler.getUserID()).observe(requireActivity(), user -> {
             if (user != null) {
                 binding.personName.setText(user.getName());
                 binding.personPoints.setText("Баллы: " + user.getScores());
+                binding.personNickname.setText(user.getLogin());
                 if (user.getImage() != null) {
                     binding.profileImageButton.setVisibility(View.VISIBLE);
                     binding.profileLoadImage.setVisibility(View.GONE);
@@ -256,7 +293,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 ArrayList<Task> myTaskInProgress = new ArrayList<>();
 
                 for (Task task: tasks) {
-                    if (task.getUserID() != null) myTaskInProgress.add(task);
+                    if (task.getUserID() != null && !task.getUserID().isEmpty()) myTaskInProgress.add(task);
                     else myTasks.add(task);
                 }
 

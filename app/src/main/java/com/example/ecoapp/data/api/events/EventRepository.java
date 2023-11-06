@@ -35,7 +35,7 @@ public class EventRepository {
         RequestBody authorIDBody = RequestBody.create(MediaType.parse("text/plain"), authorID);
         RequestBody scoresBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(scores));
         RequestBody maxUsersBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(maxUsers));
-        RequestBody currentUsersBody = RequestBody.create(MediaType.parse("text/plain"), "1");
+        RequestBody currentUsersBody = RequestBody.create(MediaType.parse("text/plain"), "0");
         RequestBody latBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(lat));
         RequestBody longtBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(longt));
 

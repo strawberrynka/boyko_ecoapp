@@ -44,11 +44,15 @@ public class EventCustom {
     @SerializedName("longt")
     private double longt;
 
+    @SerializedName("dateOfCreated")
     private String date;
+
+    @SerializedName("authorName")
+    private String authorName;
 
     public EventCustom() {}
 
-    public EventCustom(String title, String photo, String description, String time, String place, String authorID, Integer scores, Integer maxUsers) {
+    public EventCustom(String title, String photo, String description, String time, String place, String authorID, Integer scores, Integer maxUsers, String authorName) {
         this.title = title;
         this.photo = photo;
         this.description = description;
@@ -58,6 +62,7 @@ public class EventCustom {
         this.scores = scores;
         this.maxUsers = maxUsers;
         this.currentUsers = 1;
+        this.authorName = authorName;
     }
 
     public String getTitle() {
@@ -170,5 +175,13 @@ public class EventCustom {
 
     public void setLongt(double longt) {
         this.longt = longt;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

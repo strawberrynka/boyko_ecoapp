@@ -6,15 +6,15 @@ public class ChangeScoresDTO {
     @SerializedName("id")
     private String id;
 
-    @SerializedName("scores")
-    private Integer scores;
+    @SerializedName("eventID")
+    private String eventID;
 
     @SerializedName("authorID")
     private String authorID;
 
-    public ChangeScoresDTO(String id, Integer scores, String authorID) {
+    public ChangeScoresDTO(String id, String eventID, String authorID) {
         this.id = id;
-        this.scores = scores;
+        this.eventID = eventID;
         this.authorID = authorID;
     }
 
@@ -26,11 +26,19 @@ public class ChangeScoresDTO {
         this.id = id;
     }
 
-    public Integer getScores() {
-        return scores;
+    public String getEventID() {
+        return eventID;
     }
 
-    public void setScores(Integer scores) {
-        this.scores = scores;
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public String getAuthorID() {
+        return authorID;
+    }
+
+    public void setAuthorID(String authorID) {
+        this.authorID = authorID;
     }
 }

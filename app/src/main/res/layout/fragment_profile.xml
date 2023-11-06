@@ -64,12 +64,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
+                    android:inputType="textNoSuggestions"
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
                     android:textSize="16sp"
                     android:gravity="center"
                     android:background="@null"
-                    android:maxLines="1"
+                    android:layout_weight="1"
+                    android:singleLine="true"
                     android:layout_gravity="center_horizontal" />
 
                 <EditText
@@ -85,7 +87,7 @@
                     android:textSize="20sp"
                     android:gravity="center"
                     android:background="@null"
-                    android:maxLines="2"
+                    android:singleLine="true"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
@@ -140,9 +142,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_medium"
-                            android:text="Ждет подтверждения"
+                            android:text="Ждет вашего подтверждения"
                             android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="16dp" />
 
@@ -219,6 +221,7 @@
                             android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
                             android:textSize="20sp"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
                         <RadioGroup
@@ -227,6 +230,7 @@
                             android:layout_height="wrap_content"
                             app:layout_constraintTop_toBottomOf="@id/interface_settings_text_view"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginTop="20dp"
                             android:orientation="horizontal">
 
@@ -244,6 +248,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
+                                android:layout_marginRight="16dp"
+                                android:layout_marginLeft="16dp"
                                 android:background="@drawable/radio_button_selector_dark"
                                 style="@style/DarkThemeRadioButtonStyle">
                             </RadioButton>

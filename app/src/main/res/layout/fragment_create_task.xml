@@ -109,7 +109,7 @@
                             android:fontFamily="@font/montserrat_regular"
                             android:backgroundTint="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
                             android:background="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
-                            android:inputType="textCapWords"
+                            android:inputType="textCapSentences"
                             android:layout_height="48dp" />
 
                     </androidx.cardview.widget.CardView>

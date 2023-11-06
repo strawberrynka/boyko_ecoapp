@@ -21,6 +21,9 @@ public class Guide {
     @SerializedName("guideID")
     private String guideID;
 
+    @SerializedName("authorName")
+    private String authorName;
+
     public Guide() {}
 
     public Guide(String title, String description, String source) {
@@ -36,13 +39,14 @@ public class Guide {
         this.source = source;
     }
 
-    public Guide(String title, String photo, String description, String authorID, String source, String guideID) {
+    public Guide(String title, String photo, String description, String authorID, String source, String guideID, String authorName) {
         this.title = title;
         this.photo = photo;
         this.description = description;
         this.authorID = authorID;
         this.source = source;
         this.guideID = guideID;
+        this.authorName = authorName;
     }
 
     public String getTitle() {
@@ -91,5 +95,13 @@ public class Guide {
 
     public void setGuideID(String guideID) {
         this.guideID = guideID;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
     }
 }

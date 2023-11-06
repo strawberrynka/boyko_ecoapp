@@ -158,11 +158,15 @@
         android:id="@+id/login_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="16dp"
         android:text=""
-        android:textColorHint="@{themeInfo == 2 ? @color/green_theme_black : @color/black}"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/login_card_view"
-        app:layout_constraintTop_toTopOf="@+id/login_card_view" />
+        android:textColor="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registration_text_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

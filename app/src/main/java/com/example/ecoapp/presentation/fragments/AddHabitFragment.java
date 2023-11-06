@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AddHabitFragment extends Fragment {
     private FragmentAddHabitBinding binding;
-    private HabitViewModel viewModel;
+    public HabitViewModel viewModel;
     private String typeHabit;
 
     @Override
@@ -92,5 +92,12 @@ public class AddHabitFragment extends Fragment {
                 viewModel.cancelNavigate();
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        viewModel.cancelNavigate();
     }
 }

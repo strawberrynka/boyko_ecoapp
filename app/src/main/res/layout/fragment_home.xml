@@ -11,13 +11,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
-    android:paddingBottom="50dp"
+    android:paddingBottom="66dp"
     tools:context=".presentation.fragments.HomeFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/home_loader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,6 +51,7 @@
                     android:layout_height="212dp"
                     app:cardElevation="0dp"
                     android:elevation="0dp"
+                    android:padding="4dp"
                     android:layout_marginTop="12dp"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
@@ -124,6 +126,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:layout_marginLeft="8dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/advice_title"
                             />
@@ -137,7 +140,7 @@
                             android:textColor="@{themeInfo == 2 ? @color/green_theme_home_titles_gray : @color/home_titles_gray}"
                             android:textSize="18sp"
                             android:layout_marginLeft="24dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="8dp"
                             app:layout_constraintTop_toBottomOf="@id/adviceRecyclerView"
                             app:layout_constraintStart_toStartOf="parent" />
 
@@ -146,6 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
+                            android:layout_marginLeft="8dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/saved_advice_title"
@@ -192,7 +196,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginLeft="8dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/nearby_title"
@@ -210,7 +214,6 @@
                     app:cardElevation="0dp"
                     android:elevation="0dp"
                     android:layout_marginTop="12dp"
-                    android:paddingBottom="60dp"
                     app:cardCornerRadius="16dp"
                     app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                     app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +223,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingBottom="8dp">
+                        android:paddingBottom="12dp">
 
                         <TextView
                             android:id="@+id/habits_title"

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.KeyEvent;
@@ -38,7 +39,7 @@ public class SearchFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(EventViewModel.class);
 
         binding.foundRecyclerView.setHasFixedSize(true);
-        binding.foundRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.foundRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         binding.searchBarEditText.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE || event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
@@ -48,6 +49,7 @@ public class SearchFragment extends Fragment {
                         binding.foundRecyclerView.setAdapter(searchAdapter);
                     }
                 });
+
                 return true;
             }
             return false;

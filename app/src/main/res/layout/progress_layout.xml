@@ -11,6 +11,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="Прогресс привычек"
+        android:textColor="@{themeInfo == 2 ? @color/green_theme_white : @color/black}"
+        android:textSize="24sp" />
+
+    <ImageButton
+        android:id="@+id/progress_layout_back"
+        android:contentDescription="back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/baseline_arrow_back_24"
+        />
+
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/progress_calendar"
         android:layout_width="match_parent"
@@ -18,5 +42,6 @@
         app:mcv_showOtherDates="all"
         app:mcv_selectionColor="@android:color/transparent"
         />
+
 </LinearLayout>
 </layout>

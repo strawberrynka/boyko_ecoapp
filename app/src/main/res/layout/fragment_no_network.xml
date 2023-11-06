@@ -9,10 +9,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:layout_marginTop="50dp"
         android:layout_gravity="top|center"
         android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:fontFamily="@font/montserrat_regular"
         android:text="Нет соединения с сервером" />
 

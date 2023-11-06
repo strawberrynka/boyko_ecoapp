@@ -9,11 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.ecoapp.presentation.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_authSignupFragment"
             app:destination="@id/authSignupFragment"
@@ -44,17 +40,17 @@
             app:popExitAnim="@anim/nav_pop_exit"/>
         <action
             android:id="@+id/action_homeFragment_to_taskFragment"
-            app:destination="@id/taskFragment" />
+            app:destination="@id/taskFragment"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit" />
     </fragment>
     <fragment
         android:id="@+id/authSignupFragment"
         android:name="com.example.ecoapp.presentation.fragments.AuthSignupFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_authSignupFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -76,11 +72,7 @@
         android:id="@+id/authLoginFragment"
         android:name="com.example.ecoapp.presentation.fragments.AuthLoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_authLoginFragment_to_authSignupFragment"
             app:destination="@id/authSignupFragment"
@@ -102,11 +94,7 @@
         android:id="@+id/eventsFragment"
         android:name="com.example.ecoapp.presentation.fragments.EventsFragment"
         android:label="fragment_events"
-        tools:layout="@layout/fragment_events"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_eventsFragment_to_mapFragment"
             app:destination="@id/mapFragment"
@@ -133,20 +121,12 @@
         android:id="@+id/searchFragment"
         android:name="com.example.ecoapp.presentation.fragments.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit"/>
+        tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.ecoapp.presentation.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_authSignupFragment"
             app:destination="@id/authSignupFragment"
@@ -157,7 +137,12 @@
             />
         <action
             android:id="@+id/action_profileFragment_to_taskFragment"
-            app:destination="@id/taskFragment" />
+            app:destination="@id/taskFragment"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"
+            />
         <action
             android:id="@+id/action_profileFragment_to_createTaskFragment"
             app:destination="@id/createTaskFragment"
@@ -171,20 +156,12 @@
         android:name="com.example.ecoapp.presentation.fragments.NoNetworkFragment"
         android:label="fragment_no_network"
         tools:layout="@layout/fragment_no_network"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit"
         />
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.ecoapp.presentation.fragments.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment_to_eventsFragment"
             app:destination="@id/eventsFragment"
@@ -218,11 +195,7 @@
         android:id="@+id/createEventFragment"
         android:name="com.example.ecoapp.presentation.fragments.CreateEventFragment"
         android:label="fragment_create_event"
-        tools:layout="@layout/fragment_create_event"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_create_event">
         <action
             android:id="@+id/action_createEventFragment_to_eventsFragment"
             app:destination="@id/eventsFragment"
@@ -243,11 +216,7 @@
         android:id="@+id/eventFragment"
         android:name="com.example.ecoapp.presentation.fragments.EventFragment"
         android:label="fragment_event"
-        tools:layout="@layout/fragment_event"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_event">
         <action
             android:id="@+id/action_eventFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -262,16 +231,19 @@
             app:exitAnim="@anim/nav_exit"
             app:popEnterAnim="@anim/nav_pop_enter"
             app:popExitAnim="@anim/nav_pop_exit"/>
+        <action
+            android:id="@+id/action_eventFragment_to_userListDialogFragment"
+            app:destination="@id/userListDialogFragment"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"/>
     </fragment>
     <fragment
         android:id="@+id/secondMapFragment"
         android:name="com.example.ecoapp.presentation.fragments.SecondMapFragment"
         android:label="fragment_second_map"
-        tools:layout="@layout/fragment_second_map"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_second_map">
         <action
             android:id="@+id/action_secondMapFragment_to_eventFragment"
             app:destination="@id/eventFragment"
@@ -283,11 +255,7 @@
     <fragment
         android:id="@+id/habitFragment"
         android:name="com.example.ecoapp.presentation.fragments.HabitFragment"
-        android:label="HabitFragment"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        android:label="HabitFragment">
         <action
             android:id="@+id/action_habitFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -314,7 +282,7 @@
         android:id="@+id/addHabitFragment"
         android:name="com.example.ecoapp.presentation.fragments.AddHabitFragment"
         android:label="fragment_add_habit"
-        tools:layout="@layout/fragment_add_habit" >
+        tools:layout="@layout/fragment_add_habit">
         <action
             android:id="@+id/action_addHabitFragment_to_habitFragment"
             app:destination="@id/habitFragment"
@@ -327,11 +295,7 @@
         android:id="@+id/addGuideFragment"
         android:name="com.example.ecoapp.presentation.fragments.AddGuideFragment"
         android:label="fragment_create_guide"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit"
-        tools:layout="@layout/fragment_create_guide" >
+        tools:layout="@layout/fragment_create_guide">
         <action
             android:id="@+id/action_addGuideFragment_to_eventsFragment"
             app:destination="@id/eventsFragment"
@@ -344,7 +308,7 @@
         android:id="@+id/guideFragment"
         android:name="com.example.ecoapp.presentation.fragments.GuideFragment"
         android:label="fragment_guide"
-        tools:layout="@layout/fragment_guide" >
+        tools:layout="@layout/fragment_guide">
         <action
             android:id="@+id/action_guideFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -357,11 +321,7 @@
     <fragment
         android:id="@+id/progressFragment"
         android:name="com.example.ecoapp.presentation.fragments.ProgressFragment"
-        android:label="ProgressFragment"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        android:label="ProgressFragment">
         <action
             android:id="@+id/action_progressFragment_to_habitFragment"
             app:destination="@id/habitFragment"
@@ -374,11 +334,7 @@
         android:id="@+id/taskFragment"
         android:name="com.example.ecoapp.presentation.fragments.TaskFragment"
         android:label="fragment_task"
-        tools:layout="@layout/fragment_task"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_task">
         <action
             android:id="@+id/action_taskFragment_to_profileFragment"
             app:destination="@id/profileFragment"
@@ -399,11 +355,7 @@
         android:id="@+id/createTaskFragment"
         android:name="com.example.ecoapp.presentation.fragments.CreateTaskFragment"
         android:label="fragment_create_task"
-        tools:layout="@layout/fragment_create_task"
-        app:enterAnim="@anim/nav_enter"
-        app:exitAnim="@anim/nav_exit"
-        app:popEnterAnim="@anim/nav_pop_enter"
-        app:popExitAnim="@anim/nav_pop_exit">
+        tools:layout="@layout/fragment_create_task">
         <action
             android:id="@+id/action_createTaskFragment_to_profileFragment"
             app:destination="@id/profileFragment"
@@ -412,4 +364,16 @@
             app:popEnterAnim="@anim/nav_pop_enter"
             app:popExitAnim="@anim/nav_pop_exit"/>
     </fragment>
+    <dialog
+        android:id="@+id/userListDialogFragment"
+        android:name="com.example.ecoapp.presentation.fragments.UserListDialogFragment"
+        android:label="UserListDialogFragment">
+        <action
+            android:id="@+id/action_userListDialogFragment_to_eventFragment"
+            app:destination="@id/eventFragment"
+            app:enterAnim="@anim/nav_enter"
+            app:exitAnim="@anim/nav_exit"
+            app:popEnterAnim="@anim/nav_pop_enter"
+            app:popExitAnim="@anim/nav_pop_exit"/>
+    </dialog>
 </navigation>

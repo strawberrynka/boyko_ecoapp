@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
+        app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
         android:id="@+id/map_card_view">
 
         <LinearLayout
@@ -62,8 +63,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/fragment_second_map_back_to_previous_fragment_card_view"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:elevation="0dp"
         app:cardCornerRadius="19dp"
         app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
@@ -77,6 +78,7 @@
             android:contentDescription="back"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:background="@drawable/baseline_arrow_back_24"
             />
     </androidx.cardview.widget.CardView>

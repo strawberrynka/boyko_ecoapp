@@ -10,7 +10,7 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="50dp"
+    android:paddingBottom="66dp"
     android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
     tools:context=".presentation.fragments.EventsFragment">
 
@@ -175,6 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/my_events_title"
@@ -221,6 +222,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/coming_title"
@@ -246,7 +248,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="12dp">
 
                     <TextView
                         android:id="@+id/other_events_title"
@@ -279,6 +282,7 @@
                             android:layout_gravity="center"
                             app:cardElevation="30dp"
                             android:elevation="50dp"
+                            android:id="@+id/map_open_open"
                             app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                             app:cardCornerRadius="24dp">
 

@@ -2,31 +2,37 @@ package com.example.ecoapp.presentation.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ecoapp.R;
 import com.example.ecoapp.databinding.FragmentTaskBinding;
 import com.example.ecoapp.domain.helpers.StorageHandler;
+import com.example.ecoapp.presentation.MainActivity;
+import com.example.ecoapp.presentation.viewmodels.ProfileViewModel;
 import com.example.ecoapp.presentation.viewmodels.TaskViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +44,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TaskFragment extends Fragment {
     private FragmentTaskBinding binding;
     private TaskViewModel viewModel;
     private StorageHandler storageHandler;
@@ -52,6 +58,23 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private int currentFile = 1;
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(false);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(true);
+        }
+    }
+
+
+    @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_task, container, false);
@@ -60,9 +83,7 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         viewModel = new ViewModelProvider(this).get(TaskViewModel.class);
 
-        binding.taskLoader.setOnRefreshListener(this);
         binding.theTaskBackToPreviousFragmentButton.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
-
 
         args = getArguments();
         if (args != null) loadData();
@@ -83,23 +104,45 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                     binding.fragmentTaskBeginButton.setVisibility(View.GONE);
                     binding.fragmentTaskRefuseButton.setVisibility(View.VISIBLE);
                     binding.taskConfirmation.setVisibility(View.VISIBLE);
+                    binding.theTaskDescription.setEnabled(true);
                 }
             });
         });
 
         binding.deleteTaskButton.setOnClickListener(View -> viewModel.deleteTask(taskID));
 
+        binding.confirmTaskPhoto1.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        binding.confirmTaskPhoto1.setAdjustViewBounds(true);
+
+        binding.confirmTaskPhoto2.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        binding.confirmTaskPhoto2.setAdjustViewBounds(true);
+
+        binding.confirmTaskPhoto3.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        binding.confirmTaskPhoto3.setAdjustViewBounds(true);
+
         binding.confirmTaskPhoto1.setOnClickListener(v -> loadPhoto(1));
         binding.confirmTaskPhoto2.setOnClickListener(v -> loadPhoto(2));
         binding.confirmTaskPhoto3.setOnClickListener(v -> loadPhoto(3));
 
         binding.fragmentTaskConfirmationSendButton.setOnClickListener(v -> {
+            String text = binding.taskReportEditText.getText().toString().isEmpty() ? "" : binding.taskReportEditText.getText().toString();
             if (file1 == null || file2 == null || file3 == null) Toast.makeText(requireContext(), "Вы должны загрузить 3 изображения", Toast.LENGTH_SHORT).show();
-            else viewModel.takeTask(taskID, "...", file1, file2, file3);
+            else viewModel.takeTask(taskID, text, file1, file2, file3);
         });
 
         binding.fragmentTaskAcceptButton.setOnClickListener(View -> {
             viewModel.makeTaskDone(taskID);
+        });
+
+        binding.fragmentTaskDeclineButton.setOnClickListener(v -> {
+            viewModel.cancelTakeTask(taskID).observe(requireActivity(), statusCode -> {
+                if (statusCode >= 200 && statusCode < 400) {
+                    binding.fragmentTaskAcceptButton.setVisibility(View.GONE);
+                    binding.fragmentTaskDeclineButton.setVisibility(View.GONE);
+                    binding.taskConfirmation.setVisibility(View.GONE);
+                    binding.taskReportEditText.setVisibility(View.GONE);
+                }
+            });
         });
 
         return binding.getRoot();
@@ -111,7 +154,7 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         viewModel.getNavigation().observe(getViewLifecycleOwner(), isNavigation -> {
             if (isNavigation) {
-                Navigation.findNavController(requireView()).navigate(R.id.profileFragment);
+                Navigation.findNavController(requireView()).navigate(R.id.action_taskFragment_to_profileFragment);
                 viewModel.setCancelNavigation();
             }
         });
@@ -130,25 +173,45 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 binding.taskTitle.setText(task.getName());
                 binding.theTaskDescription.setText(task.getDescription());
                 binding.theTaskAwardPoints.setText("Баллы в награду: " + Integer.toString(task.getScores()));
+                binding.taskAuthorName.setText(task.getAuthorName());
+
                 if (task.getAuthorID().equals(storageHandler.getUserID())) {
                     binding.fragmentTaskRefuseButton.setVisibility(View.GONE);
                     binding.fragmentTaskBeginButton.setVisibility(View.GONE);
                     binding.fragmentTaskConfirmationSendButton.setVisibility(View.GONE);
-                    binding.taskConfirmation.setVisibility(View.VISIBLE);
+                    binding.taskConfirmation.setVisibility(View.GONE);
                     if (task.getUserID() != null && task.getImages() != null) binding.deleteTaskButton.setVisibility(View.GONE);
                     else binding.deleteTaskButton.setVisibility(View.VISIBLE);
+
+                    if (task.getUserDescription() == null) binding.taskReportEditText.setVisibility(View.GONE);
+                    else {
+                        binding.taskReportEditText.setVisibility(View.VISIBLE);
+                        binding.taskReportEditText.setText(task.getUserDescription());
+                        binding.taskReportEditText.setEnabled(false);
+                    }
                 } else if (task.getUserID() != null && task.getUserID().equals(storageHandler.getUserID())) {
                     binding.fragmentTaskRefuseButton.setVisibility(View.VISIBLE);
                     binding.taskConfirmation.setVisibility(View.VISIBLE);
+                    binding.theTaskDescription.setEnabled(false);
                 } else {
                     binding.fragmentTaskBeginButton.setVisibility(View.VISIBLE);
                 }
 
+                binding.taskReportEditText.setVisibility(View.VISIBLE);
+                if (task.getUserDescription() != null) {
+                    binding.taskReportEditText.setText(task.getUserDescription());
+                    binding.taskReportEditText.setEnabled(false);
+                }
 
                 if (task.getImages() != null && !task.getImages().isEmpty() && (task.getUserID().equals(storageHandler.getUserID()) || task.getAuthorID().equals(storageHandler.getUserID()))) {
                     binding.fragmentTaskConfirmationSendButton.setVisibility(View.GONE);
-                    binding.fragmentTaskAcceptButton.setVisibility(View.VISIBLE);
+                    if (task.getAuthorID().equals(storageHandler.getUserID())) {
+                        binding.fragmentTaskAcceptButton.setVisibility(View.VISIBLE);
+                        binding.fragmentTaskDeclineButton.setVisibility(View.VISIBLE);
+                    }
+
                     if (task.getImages().get(0) != null) {
+                        binding.taskConfirmation.setVisibility(View.VISIBLE);
                         String url = "http://178.21.8.29:8080/image/" + task.getImages().get(0);
                         Picasso.get().load(url).into(binding.confirmTaskPhoto1);
                     }
@@ -156,21 +219,13 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                         String url = "http://178.21.8.29:8080/image/" + task.getImages().get(1);
                         Picasso.get().load(url).into(binding.confirmTaskPhoto2);
                     }
-
                     if (task.getImages().get(2) != null) {
                         String url = "http://178.21.8.29:8080/image/" + task.getImages().get(2);
                         Picasso.get().load(url).into(binding.confirmTaskPhoto3);
                     }
                 }
-
-                binding.taskLoader.setRefreshing(false);
             }
         });
-    }
-
-    @Override
-    public void onRefresh() {
-        if (args != null) loadData();
     }
 
     @Override
@@ -229,16 +284,27 @@ public class TaskFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void loadPhoto(int currentNum) {
-        currentFile = currentNum;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                    1);
+        } else {
+            currentFile = currentNum;
 
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType("image/*");
 
-        Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
+            Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
 
-        startActivityForResult(chooserIntent, SELECT_PHOTO_PROFILE);
+            startActivityForResult(chooserIntent, SELECT_PHOTO_PROFILE);
+        }
     }
 }

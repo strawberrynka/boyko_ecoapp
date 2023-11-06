@@ -231,6 +231,7 @@ public class EventViewModel extends AndroidViewModel {
             public void onResponse(@NotNull Call<UsersListDTO> call, @NotNull Response<UsersListDTO> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     usersScoresList.setValue(response.body().getItem());
+                    isGetContext.setValue(true);
                 }
             }
 

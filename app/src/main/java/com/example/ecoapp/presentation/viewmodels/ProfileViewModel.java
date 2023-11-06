@@ -88,9 +88,9 @@ public class ProfileViewModel extends AndroidViewModel {
         return user;
     }
 
-    public LiveData<Integer> updateUserScores(String userID, int scores) {
+    public LiveData<Integer> updateUserScores(String userID, String eventID) {
         statusCode.setValue(0);
-        userRepository.changeScores(storageHandler.getToken(), storageHandler.getUserID(), userID, scores).enqueue(new Callback<User>() {
+        userRepository.changeScores(storageHandler.getToken(), storageHandler.getUserID(), userID, eventID).enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
                 statusCode.setValue(response.code());
@@ -141,25 +141,4 @@ public class ProfileViewModel extends AndroidViewModel {
 
         return statusCode;
     }
-
-//    public LiveData<File> getUserImage(String token, String url) {
-//        userRepository.getImage(token, url).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(@NotNull Call<ResponseBody> call, @NotNull Response<ResponseBody> response) {
-//                statusCode.setValue(response.code());
-//                if (response.isSuccessful() && response.body() != null) {
-//                    File file = new File(response.body().);
-//                    userImage.setValue(response.body());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-//                t.printStackTrace();
-//                statusCode.setValue(400);
-//            }
-//        });
-//
-//        return userImage;
-//    }
 }

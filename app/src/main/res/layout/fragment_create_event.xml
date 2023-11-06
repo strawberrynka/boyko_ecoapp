@@ -12,7 +12,6 @@
     android:layout_height="wrap_content"
     android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
     tools:context=".presentation.fragments.CreateEventFragment"
-    android:paddingBottom="80dp"
     >
 
     <ScrollView
@@ -98,6 +97,7 @@
                         android:layout_height="250dp"
                         android:src="@drawable/default_photo_event"
                         android:contentDescription="Обложка события"
+                        android:background="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/fragment_create_event_person_points"/>
@@ -148,7 +148,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:backgroundTint="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
                                 android:background="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
-                                android:inputType="textCapWords"
+                                android:inputType="textCapSentences"
                                 android:layout_height="48dp" />
 
                     </androidx.cardview.widget.CardView>
@@ -206,7 +206,7 @@
                             android:layout_width="match_parent"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            android:hint="Дата"
+                            android:hint="Дата ДД.ММ.ГГГГ"
                             android:textSize="16sp"
                             android:textColorHint="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
                             android:fontFamily="@font/montserrat_regular"
@@ -233,7 +233,7 @@
                             android:layout_width="match_parent"
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            android:hint="Время"
+                            android:hint="Время ЧЧ:ММ"
                             android:textSize="16sp"
                             android:textColorHint="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
                             android:fontFamily="@font/montserrat_regular"
@@ -352,26 +352,38 @@
                             app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                             app:cardCornerRadius="24dp">
 
-                            <TextView
-                                android:id="@+id/event_find_map"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Посмотреть на карте"
-                                android:textColor="#FFFFFFFF"
-                                android:textSize="16sp"
-                                android:fontFamily="@font/montserrat_light"
-                                android:layout_margin="20dp"/>
-
-                            <TextView
-                                android:id="@+id/event_address_text"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:padding="20dp"
-                                android:textSize="18sp"
-                                android:visibility="gone"
-                                android:layout_marginTop="50dp" />
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
 
+                                <TextView
+                                    android:id="@+id/event_find_map"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Посмотреть на карте"
+                                    android:textColor="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+                                    android:textSize="16sp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:gravity="center"
+                                    android:fontFamily="@font/montserrat_light"
+                                    android:layout_margin="20dp"/>
+
+                                <TextView
+                                    android:id="@+id/event_address_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:textColor="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
+                                    android:textSize="16sp"
+                                    android:fontFamily="@font/montserrat_light"
+                                    android:visibility="gone"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginBottom="20dp"
+                                    android:layout_marginRight="12dp"
+                                    android:layout_marginLeft="12dp"/>
+
+                            </LinearLayout>
                         </androidx.cardview.widget.CardView>
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -379,7 +391,7 @@
 
             <TextView
                 android:id="@+id/create_event_required_points"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:ellipsize="end"

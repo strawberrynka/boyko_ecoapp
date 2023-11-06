@@ -8,12 +8,11 @@
             type="Integer" />
     </data>
 <androidx.cardview.widget.CardView
-    android:layout_width="140dp"
-    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
-    app:cardElevation="0dp"
-    android:elevation="0dp"
     android:id="@+id/nearby_item"
-    android:layout_marginStart="20dp"
+    android:layout_width="140dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
+    android:layout_marginLeft="0dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="10dp"
     android:layout_height="180dp">
@@ -25,7 +24,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/nearby_image_card_view"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
             android:elevation="0dp"
@@ -38,7 +37,6 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/empty_nearby"
-                android:background="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                 android:scaleType="centerCrop"
                 />
         </androidx.cardview.widget.CardView>

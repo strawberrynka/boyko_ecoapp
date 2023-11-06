@@ -11,19 +11,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:id="@+id/users_scores_name"
-        android:layout_marginEnd="20dp"
-        android:textSize="24sp" />
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/montserrat_regular"
+        android:textColor="@color/reglogin_text"
+        android:textSize="10sp" />
+
+    <Button
+        android:id="@+id/users_scores_confirm"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/users_scores_input"
-        android:textSize="24sp"
-        android:layout_gravity="end"
-        android:gravity="end"
-        android:hint="Количество баллов" />
+        android:textSize="10sp"
+        android:fontFamily="@font/montserrat_light"
+        android:text="Подтвердить" />
 </LinearLayout>
-</layout>
+    </layout>

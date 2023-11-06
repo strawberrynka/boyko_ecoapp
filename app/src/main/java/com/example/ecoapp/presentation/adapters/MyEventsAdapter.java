@@ -22,7 +22,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MyEventsAdapter extends RecyclerView.Adapter<MyEventsAdapter.MyEventsViewHolder> {
-
     private int theme;
     private List<MyEvents> myEventsList;
 

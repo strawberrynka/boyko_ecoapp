@@ -16,6 +16,7 @@ import com.example.ecoapp.R;
 import com.example.ecoapp.data.models.Habit;
 import com.example.ecoapp.databinding.FragmentHabitsBinding;
 import com.example.ecoapp.domain.helpers.StorageHandler;
+import com.example.ecoapp.presentation.MainActivity;
 import com.example.ecoapp.presentation.adapters.HabitsAdapter;
 import com.example.ecoapp.presentation.viewmodels.HabitViewModel;
 
@@ -24,10 +25,29 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class HabitFragment extends Fragment {
-    private FragmentHabitsBinding binding;
-    private HabitViewModel viewModel;
-    private ArrayList<Habit> habitsList;
-    private int theme;
+    public FragmentHabitsBinding binding;
+    public HabitViewModel viewModel;
+    public ArrayList<Habit> habitsList;
+    public int theme;
+    public HabitsAdapter habitsAdapter;
+    public StorageHandler storageHandler;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(false);
+        }
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (getActivity() instanceof MainActivity) {
+            ((MainActivity) requireActivity()).changeMenu(true);
+        }
+    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
@@ -36,8 +56,6 @@ public class HabitFragment extends Fragment {
         theme = new StorageHandler(requireContext()).getTheme();
 
         binding.setThemeInfo(theme);
-
-
 
         binding.fragmentHabitsBackToPreviousFragmentButton.setOnClickListener(v -> {
             Navigation.findNavController(v).popBackStack();
@@ -82,7 +100,7 @@ public class HabitFragment extends Fragment {
 
                     this.habitsList = habitsNewList;
 
-                    HabitsAdapter habitsAdapter = new HabitsAdapter(habitsNewList, theme);
+                    habitsAdapter = new HabitsAdapter(habitsNewList, theme);
                     habitsAdapter.setOnItemClickListener(position -> {
                         if (!habitsList.get(position).isDone()) {
                             viewModel.makeHabitDone(habitsList.get(position).getHabitID());
@@ -98,7 +116,7 @@ public class HabitFragment extends Fragment {
             });
         }
 
-        binding.progressIcon.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.progressFragment));
+        binding.fragmentHabitsProgressCardView.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.progressFragment));
 
         return binding.getRoot();
     }

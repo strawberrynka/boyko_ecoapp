@@ -153,5 +153,6 @@ public class SecondMapFragment extends Fragment {
         }
 
         binding.mapButton.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
+        binding.fragmentSecondMapBackToPreviousFragmentButton.setOnClickListener(v -> Navigation.findNavController(v).popBackStack());
     }
 }

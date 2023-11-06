@@ -3,16 +3,12 @@ package com.example.ecoapp.presentation.fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,10 +32,11 @@ import com.example.ecoapp.data.models.Advice;
 import com.example.ecoapp.data.models.EventCustom;
 import com.example.ecoapp.data.models.Task;
 import com.example.ecoapp.R;
-import com.example.ecoapp.presentation.services.MyLocationListener;
 import com.example.ecoapp.presentation.viewmodels.EventViewModel;
 import com.example.ecoapp.presentation.viewmodels.GuideViewModel;
 import com.example.ecoapp.presentation.viewmodels.TaskViewModel;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +53,9 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private boolean isLoad = false;
     private StorageHandler storageHandler;
     private TasksAdapter tasksAdapter;
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -69,14 +69,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onPause() {
         super.onPause();
         isLoad = false;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (MyLocationListener.imHere != null && !isLoad) loadNearbyEvents(MyLocationListener.imHere.getLatitude(), MyLocationListener.imHere.getLongitude());
-
     }
 
     @Override
@@ -99,8 +91,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         storageHandler = new StorageHandler(requireContext());
         binding.setThemeInfo(storageHandler.getTheme());
 
-        MyLocationListener.SetUpLocationListener(requireContext());
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         viewModel = new ViewModelProvider(this).get(EventViewModel.class);
         guideViewModel = new ViewModelProvider(this).get(GuideViewModel.class);
@@ -122,7 +113,6 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         binding.savedAdviceRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         loadData();
-
 
         binding.dailyHabits.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -146,30 +136,34 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void loadNearbyEvents(double lat, double longt) {
-        viewModel.findNearestEventsByAuthorCoords(lat, longt).observe(activity, events -> {
-            if (events != null) {
-                if (eventCustoms == null) eventCustoms = new ArrayList<>();
-                else eventCustoms.clear();
+        if (activity != null) {
+            viewModel.findNearestEventsByAuthorCoords(lat, longt).observe(activity, events -> {
+                if (events != null) {
+                    if (eventCustoms == null) eventCustoms = new ArrayList<>();
+                    else eventCustoms.clear();
 
-                for (EventCustom event: events) {
-                    if (event == null || event.getAuthorID().equals(storageHandler.getUserID())) continue;
-                    eventCustoms.add(event);
+                    for (EventCustom event : events) {
+                        if (event == null || event.getAuthorID().equals(storageHandler.getUserID()))
+                            continue;
+                        eventCustoms.add(event);
+                    }
+
+                    NearbyAdapter nearbyAdapter = new NearbyAdapter(eventCustoms, storageHandler.getTheme());
+                    binding.nearbyRecyclerView.setAdapter(nearbyAdapter);
+
+                    isLoad = true;
                 }
-
-                NearbyAdapter nearbyAdapter = new NearbyAdapter(eventCustoms, storageHandler.getTheme());
-                binding.nearbyRecyclerView.setAdapter(nearbyAdapter);
-
-                isLoad = true;
-            }
-        });
+            });
+        }
     }
 
     private void loadData() {
         taskViewModel.getAllTasks().observe(requireActivity(), tasks -> {
             if (tasks != null) {
                 ArrayList<Task> tasksList = new ArrayList<>();
-                for (Task task: tasks) {
-                    if (task.getAuthorID().equals(storageHandler.getUserID()) || !task.getImages().isEmpty()) continue;
+                for (Task task : tasks) {
+                    if (task.getAuthorID().equals(storageHandler.getUserID()) || !task.getImages().isEmpty())
+                        continue;
                     tasksList.add(task);
                 }
                 tasksAdapter = new TasksAdapter(tasksList, storageHandler.getTheme());
@@ -179,8 +173,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
         guideViewModel.getGuidesList().observe(requireActivity(), guides -> {
             List<Advice> guidesList = new ArrayList<>();
-            for (Guide guide: guides) {
-                if (guide.getAuthorID().equals(storageHandler.getUserID())) continue;
+            for (Guide guide : guides) {
                 guidesList.add(new Advice(guide.getPhoto(), guide.getTitle(), guide.getGuideID()));
             }
 
@@ -192,8 +185,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         guideViewModel.getGuidesSavedList().observe(requireActivity(), guides -> {
             if (guides != null) {
                 List<Advice> guidesList = new ArrayList<>();
-                for (Guide guide: guides) {
-                    if (guide.getAuthorID().equals(storageHandler.getUserID())) continue;
+                for (Guide guide : guides) {
                     guidesList.add(new Advice(guide.getPhoto(), guide.getTitle(), guide.getGuideID()));
                 }
 
@@ -203,6 +195,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
             }
         });
 
+        getLastKnownLocation();
     }
 
     @Override
@@ -223,5 +216,25 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onRefresh() {
         loadData();
+    }
+
+    private void getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            new PermissionHandler().requestMapPermissions((AppCompatActivity) requireActivity());
+            return;
+        }
+        fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
+            if (location != null) {
+                loadNearbyEvents(location.getLatitude(), location.getLongitude());
+            }
+        });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastKnownLocation();
+            }
+        }
     }
 }

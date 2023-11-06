@@ -13,7 +13,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@{themeInfo == 2 ? @color/green_theme_background_gray : @color/background_gray}"
-    android:paddingBottom="80dp"
     tools:context=".presentation.fragments.AddGuideFragment"
     >
     <ScrollView
@@ -85,6 +84,7 @@
                         android:layout_height="250dp"
                         android:src="@drawable/default_photo_event"
                         android:contentDescription="Обложка события"
+                        android:background="@{themeInfo == 2 ? @color/green_theme_background_card_view : @color/background_card_view}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/fragment_create_event_person_points"/>
@@ -134,6 +134,7 @@
                             android:backgroundTint="@{themeInfo == 2 ? @color/green_theme_background_search : @color/background_search}"
                             android:fontFamily="@font/montserrat_regular"
                             android:hint="Название гайда"
+                            android:inputType="textCapSentences"
                             android:textColorHint="@{themeInfo == 2 ? @color/green_theme_reglogin_text : @color/reglogin_text}"
                             android:textSize="16sp" />
 
@@ -230,7 +231,6 @@
                 app:layout_constraintTop_toBottomOf="@id/creating_guide_fields_card_view"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

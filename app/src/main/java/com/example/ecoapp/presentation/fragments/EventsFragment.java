@@ -31,7 +31,7 @@ import java.util.List;
 
 public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private FragmentEventsBinding fragmentEventsBinding;
-    private EventViewModel viewModel;
+    public EventViewModel viewModel;
     private ProfileViewModel profileViewModel;
     private int theme;
 
@@ -51,10 +51,10 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         fragmentEventsBinding.eventsLoader.setOnRefreshListener(this);
 
-        fragmentEventsBinding.mapOpen.setOnClickListener(v -> {
+        fragmentEventsBinding.mapOpenOpen.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_eventsFragment_to_mapFragment);
         });
-        fragmentEventsBinding.addEventCardView.setOnClickListener(v -> {
+        fragmentEventsBinding.linearLayoutAddEvent.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_eventsFragment_to_createEventFragment);
         });
 
@@ -63,7 +63,7 @@ public class EventsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         loadData();
 
-        fragmentEventsBinding.guideIcon.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.addGuideFragment));
+        fragmentEventsBinding.linearLayoutAddGuide.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_eventsFragment_to_addGuideFragment));
 
         return fragmentEventsBinding.getRoot();
     }

@@ -23,8 +23,8 @@ import com.example.ecoapp.presentation.viewmodels.AuthViewModel;
 import org.jetbrains.annotations.NotNull;
 
 public class AuthLoginFragment extends Fragment {
-    private FragmentLoginBinding binding;
-    private AuthViewModel viewModel;
+    public FragmentLoginBinding binding;
+    public AuthViewModel viewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

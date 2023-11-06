@@ -25,8 +25,8 @@ public class UserRepository {
         return userAPI.editProfile(token, new EditProfileDTO(id, name, old_password, new_password));
     }
 
-    public Call<User> changeScores(String token, String authorID, String id, Integer scores) {
-        return userAPI.changeScores(token, new ChangeScoresDTO(id, scores, authorID));
+    public Call<User> changeScores(String token, String authorID, String id, String eventID) {
+        return userAPI.changeScores(token, new ChangeScoresDTO(id, eventID, authorID));
     }
 
     public Call<User> getUser(String token, String id) {
