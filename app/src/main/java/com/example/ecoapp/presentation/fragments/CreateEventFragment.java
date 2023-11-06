@@ -165,7 +165,7 @@ public class CreateEventFragment extends Fragment {
             } else if (scoresUser < Integer.parseInt(scores)) {
                 Toast.makeText(requireContext(), "У вас недостаточно баллов", Toast.LENGTH_LONG).show();
             } else {
-                eventViewModel.sendData(title, description, date, time, fileImage, lenPeople, address, lat, longt, Integer.parseInt(scores)).observe(requireActivity(), statusCode -> {
+                eventViewModel.sendData(title, description, date, time, fileImage, lenPeople, address, lat, longt, Integer.parseInt(scores) * Integer.parseInt(lenPeople)).observe(requireActivity(), statusCode -> {
                     if (statusCode < 400 && statusCode != 0) {
                         fragmentCreateEventBinding.eventNameEditText.setText("");
                         fragmentCreateEventBinding.eventDescriptionEditText.setText("");
