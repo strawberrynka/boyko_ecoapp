@@ -82,6 +82,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
+                    android:inputType="textNoSuggestions"
                     android:fontFamily="@font/montserrat_bold"
                     android:textColor="@{themeInfo == 2 ? @color/green_theme_text_gray : @color/text_gray}"
                     android:textSize="20sp"
