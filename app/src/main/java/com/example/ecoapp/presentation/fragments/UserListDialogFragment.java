@@ -43,9 +43,7 @@ public class UserListDialogFragment extends DialogFragment {
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         Bundle args = getArguments();
 
-
         binding.usersListRecycler.setHasFixedSize(true);
-//        binding.usersListRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
 
         if (args != null) {
             eventID = args.getString("eventID");

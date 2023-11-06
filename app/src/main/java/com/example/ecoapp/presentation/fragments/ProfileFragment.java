@@ -111,7 +111,7 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         1);
             } else {
                 Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
 
                 Intent chooserIntent = Intent.createChooser(intent, "Choose Photo");
 
@@ -217,14 +217,16 @@ public class ProfileFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                     String[] filePathColumn = { MediaStore.Images.Media.DATA };
                     Cursor cursor = requireActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
-                    cursor.moveToFirst();
+                    if (cursor != null) {
+                        cursor.moveToFirst();
 
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String imagePath = cursor.getString(columnIndex);
-                    cursor.close();
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String imagePath = cursor.getString(columnIndex);
+                        cursor.close();
 
-                    File file = new File(imagePath);
-                    saveImage(file, originalBitmap);
+                        File file = new File(imagePath);
+                        saveImage(file, originalBitmap);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
