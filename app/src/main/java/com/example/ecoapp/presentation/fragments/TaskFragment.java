@@ -189,12 +189,13 @@ public class TaskFragment extends Fragment {
                         binding.taskReportEditText.setText(task.getUserDescription());
                         binding.taskReportEditText.setEnabled(false);
                     }
-                } else if (task.getUserID() != null && task.getUserID().equals(storageHandler.getUserID())) {
+                }
+                if (task.getUserID() != null && !task.getUserID().isEmpty() && task.getAuthorID().equals(storageHandler.getUserID())) {
                     binding.fragmentTaskRefuseButton.setVisibility(View.VISIBLE);
                     binding.taskConfirmation.setVisibility(View.VISIBLE);
                     binding.theTaskDescription.setEnabled(false);
                 } else {
-                    binding.fragmentTaskBeginButton.setVisibility(View.VISIBLE);
+                    if (!task.getAuthorID().equals(storageHandler.getUserID())) binding.fragmentTaskBeginButton.setVisibility(View.VISIBLE);
                 }
 
                 binding.taskReportEditText.setVisibility(View.VISIBLE);
@@ -203,12 +204,13 @@ public class TaskFragment extends Fragment {
                     binding.taskReportEditText.setEnabled(false);
                 }
 
-                if (task.getImages() != null && !task.getImages().isEmpty() && (task.getUserID().equals(storageHandler.getUserID()) || task.getAuthorID().equals(storageHandler.getUserID()))) {
+                if (task.getAuthorID().equals(storageHandler.getUserID()) && task.getUserID() != null && !task.getUserID().isEmpty()) {
+                    binding.fragmentTaskAcceptButton.setVisibility(View.VISIBLE);
+                    binding.fragmentTaskDeclineButton.setVisibility(View.VISIBLE);
+                }
+
+                if (task.getImages() != null && !task.getImages().isEmpty() && (task.getUserID().equals(storageHandler.getUserID()))) {
                     binding.fragmentTaskConfirmationSendButton.setVisibility(View.GONE);
-                    if (task.getAuthorID().equals(storageHandler.getUserID())) {
-                        binding.fragmentTaskAcceptButton.setVisibility(View.VISIBLE);
-                        binding.fragmentTaskDeclineButton.setVisibility(View.VISIBLE);
-                    }
 
                     if (task.getImages().get(0) != null) {
                         binding.taskConfirmation.setVisibility(View.VISIBLE);

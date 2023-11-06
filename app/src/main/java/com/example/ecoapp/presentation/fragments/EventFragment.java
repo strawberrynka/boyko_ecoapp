@@ -63,6 +63,19 @@ public class EventFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     public void onDestroyView() {
         super.onDestroyView();
         viewModel.cancelNavigate();
+
+        binding.eventTitle.setText("");
+        binding.theEventDescription.setText("");
+        binding.theEventDate.setText("");
+        binding.theEventTime.setText("");
+        binding.theEventAddress.setText("");
+        binding.theEventAwardPoints.setText("");
+        binding.theEventCurrentPeopleAmount.setText("");
+        binding.eventAuthorName.setText("");
+        binding.takePartInButton.setVisibility(View.GONE);
+        binding.finishEvent.setVisibility(View.GONE);
+        binding.refuseButton.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -182,11 +195,17 @@ public class EventFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 binding.theEventCurrentPeopleAmount.setText("Участники: " + String.valueOf(eventCustom.getUsersList().size()) + " / " + String.valueOf(eventCustom.getMaxUsers()));
                 binding.eventAuthorName.setText("Автор: " + eventCustom.getAuthorName());
                 if (!storageHandler.getUserID().equals(eventCustom.getAuthorID())) {
+                    binding.finishEvent.setVisibility(View.GONE);
+
                     showButton(eventCustom.getUsersList().contains(storageHandler.getUserID()));
                     if (eventCustom.getCurrentUsers() >= eventCustom.getMaxUsers()) {
                         binding.takePartInButton.setVisibility(View.GONE);
                     }
-                } else binding.finishEvent.setVisibility(View.VISIBLE);
+                } else if (storageHandler.getUserID().equals(eventCustom.getAuthorID())) {
+                    binding.finishEvent.setVisibility(View.VISIBLE);
+                    binding.refuseButton.setVisibility(View.GONE);
+                    binding.takePartInButton.setVisibility(View.GONE);
+                }
 
                 Picasso.get().load(url).into(binding.eventImage);
                 binding.eventLoader.setRefreshing(false);
